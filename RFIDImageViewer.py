@@ -30,16 +30,33 @@ for i in range(256):
 # name of the port for the RFID reader, if this can't be found replace this with hard coded string, eg. COM3 or COM4
 PORT=last(available) 
 # PORT='COM4' # try this if the above can't be found
-assert PORT, 'Port for serial device not found! Try replacing PORT with hard-coded string.'
+#assert PORT, 'Port for serial device not found! Try replacing PORT with hard-coded string.'
 
 # this setting for the serial port shouldn't need changing
 BAUD=57600
 
 # maps names to the filenames of images to load, expect names to be NORMAL, ATHLETE, HCM, DCM, FONTAN
 namedFilenames={
-####################################################
-### TODO: fill this in to provide images to load ###
-####################################################
+        'NORMAL':('HEALTHY/sax_slice.mhd','HEALTHY/tags_slice1.mhd','HEALTHY/4dflow_mag_slice.mhd','HEALTHY/4dflow_phase_slice.mhd'),
+        'ATHLETE':('ATHLETE/sax_slice.mhd','ATHLETE/tags_slice1.mhd','ATHLETE/4dflow_mag_slice.mhd','ATHLETE/4dflow_phase_slice.mhd'),
+        'DCM':('DCM/sax_slice.mhd','DCM/tags_slice1.mhd','DCM/4dflow_mag_slice.mhd','DCM/4dflow_phase_slice.mhd'),
+        'FONTAN':('FONTAN/sax_slice.mhd','FONTAN/tags_slice1.mhd'),
+        'HCM':('HCM/sax_slice.mhd',)
+}
+
+transforms={
+        'NORMAL':(
+                transform(-217.555986,0.0,200.16079,1.0,1.0,1.0,0.0,0.0,0.0,False),
+                transform(-232.481062,0.0,200.166145,1.0,1.0,1.0,0.0,0.0,0.0,False),
+                transform(1020.764664,-0.183632,3730.137349,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+                transform(980.0,-8.313213,1961.7812,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+        ),
+        'ATHLETE':(
+                transform(199.0,0.0,10.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
+                transform(67.0,0.0,8.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
+                transform(600.0,-34.0,123.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+                transform(863.0,-34.0,123.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+        ),
 }
 
 # maps image names to tuples of image objects, keys must match the names emitted by the RFID reader
@@ -47,7 +64,12 @@ namedImages={}
 
 # material to apply to all images
 mat=mgr.createMaterial('DisplayMat')
-mat.setSpectrumData([color(0,0,0),color()],[0,1],[vec3(0,0),vec3(1,1)])
+mat.setGPUProgram('BaseImage',PT_FRAGMENT)
+mat.setSpectrumData([color(0,0,0),color()],[0,1])
+
+matphase=mgr.createMaterial('PhaseMat')
+matphase.setGPUProgram('BaseImage',PT_FRAGMENT)
+matphase.setSpectrumData([color(0,0,0),color()],[0.2,0.8])
 
 ################################################################################################
 ### Load image objects
@@ -55,20 +77,28 @@ mat.setSpectrumData([color(0,0,0),color()],[0,1],[vec3(0,0),vec3(1,1)])
 
 for name,filenames in namedFilenames.items():
     images=[]
+    trans=transforms[name] if name in transforms else [transform()]*4
     
-    for f in filenames:
-        obj=Nifti.loadObject(f)
+    for f,t in zip(filenames,trans):
+        obj=MetaImg.loadObject('imagedata/'+f)
         mgr.addSceneObject(obj)
-        rep=obj.createRepr(ReprType._imgtimevolume,imgmat=mat)
+        rep=obj.createRepr(ReprType._imgtimestack,imgmat=matphase if 'phase' in f else mat)
         mgr.addSceneObjectRepr(rep)
+        rep.setTransform(t)
         images.append(rep)
-        rep.setVisible(False)
+        #rep.setVisible(len(namedImages)==0) # for now set the first image series to be visible on startup
         
     namedImages[name]=images
 
 ################################################################################################
 ### Hide the UI
 ################################################################################################
+
+#reprs[0][0].setVisible(True) # need something visible for setCameraSeeAll() to do anything
+mgr.setCameraSeeAll()
+#mgr.controller.zoom(-200) # zoom closer to mesh a little, might need to adjust this for different screens
+#mgr.setBackgroundColor(color(0,0,0,1.0))
+mgr.play()
 
 #@mgr.callThreadSafe
 def _hideUI():
@@ -110,4 +140,4 @@ def serialReadLoop():
 ################################################################################################                
 ### Start the read loop, this is the core functionality of this script
 ################################################################################################
-p=serialReadLoop()      
+#p=serialReadLoop()      
