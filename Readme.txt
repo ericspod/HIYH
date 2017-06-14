@@ -12,6 +12,7 @@ Setup procedure:
  4. Follow the instructions in HIYH/ArduinoDriversForWin7.zip to install the USB drivers.
     This contains the drivers for getting the Arduino devices recognized as serial devices in
     Windows 7. Extract the directory in this file and run setup.exe if you can't get the scripts to find the serial port.
+    Don't worry if Windows complains about the device potentially not being installed properly, just say the device is working fine.
  5. There are two .bat files, one for each display, run one of these depending on which machine you're on:
     * Double click on StartImageViewer.bat to start Eidolon with the setup for the image display
     * Double click on StartModelViewer.bat to start with the model display 

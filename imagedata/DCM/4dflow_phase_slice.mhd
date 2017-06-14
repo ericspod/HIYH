@@ -1,0 +1,8 @@
+NDims = 4
+DimSize = 101 81 1 24
+ElementType = MET_USHORT
+Offset = 97.656000 -213.000000 200.719000
+TransformMatrix =    1 0 0 0      0 0 1 0   0  -1 0 0   0 0 0 1
+ElementSpacing = 2.500000000000 2.500000000000 2.500000000000 0.037000000000
+ElementByteOrderMSB = False
+ElementDataFile = 4dflow_phase_slice.raw

@@ -1,0 +1,8 @@
+NDims = 4
+DimSize = 114 114 1 40
+ElementType = MET_USHORT
+Offset =   132.49 -168.335742  -196.5
+TransformMatrix =      0 0 1 0   -1 0 0 0    0 1 0 0     0 0 0 1
+ElementSpacing = 1.000000000000 1.000000000000 1.000000000000 0.027000000000
+ElementByteOrderMSB = False
+ElementDataFile = tags_slice1.raw

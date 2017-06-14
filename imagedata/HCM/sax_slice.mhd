@@ -1,0 +1,8 @@
+NDims = 4
+DimSize = 101 111 1 30
+ElementType = MET_USHORT
+Offset = 81.611475 -235.481713 116.807362
+TransformMatrix = 1 0 0  0 0 0 1 0 0 1 0 0 0 0 0 1
+ElementSpacing = 1.215278029440 1.215278029440 8.000043613630 0.042000000000
+ElementByteOrderMSB = False
+ElementDataFile = sax_slice.raw
