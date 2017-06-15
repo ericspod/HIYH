@@ -30,7 +30,7 @@ for i in range(256):
 # name of the port for the RFID reader, if this can't be found replace this with hard coded string, eg. COM3 or COM4
 PORT=last(available) 
 # PORT='COM4' # try this if the above can't be found
-#assert PORT, 'Port for serial device not found! Try replacing PORT with hard-coded string.'
+assert PORT, 'Port for serial device not found! Try replacing PORT with hard-coded string.'
 
 # this setting for the serial port shouldn't need changing
 BAUD=57600
@@ -59,7 +59,7 @@ transforms={
         ),
 }
 
-# maps image names to tuples of image objects, keys must match the names emitted by the RFID reader
+# maps image names to tuples of image representation objects, keys must match the names emitted by the RFID reader
 namedImages={}
 
 # material to apply to all images
@@ -69,38 +69,38 @@ mat.setSpectrumData([color(0,0,0),color()],[0,1])
 
 matphase=mgr.createMaterial('PhaseMat')
 matphase.setGPUProgram('BaseImage',PT_FRAGMENT)
-matphase.setSpectrumData([color(0,0,0),color()],[0.2,0.8])
+matphase.setSpectrumData([color(0,0,0),color()],[0.2,0.8]) # enhance the contrast by moving the black and white points inwards
 
 ################################################################################################
 ### Load image objects
 ################################################################################################
 
 for name,filenames in namedFilenames.items():
-    images=[]
     trans=transforms[name] if name in transforms else [transform()]*4
+    namedImages[name]=[]
     
     for f,t in zip(filenames,trans):
         obj=MetaImg.loadObject('imagedata/'+f)
         mgr.addSceneObject(obj)
+        
         rep=obj.createRepr(ReprType._imgtimestack,imgmat=matphase if 'phase' in f else mat)
         mgr.addSceneObjectRepr(rep)
-        rep.setTransform(t)
-        images.append(rep)
-        #rep.setVisible(len(namedImages)==0) # for now set the first image series to be visible on startup
         
-    namedImages[name]=images
+        rep.setTransform(t) # set the image's transform as stored above
+        rep.setVisible(name=='NORMAL') # make the normal images visible so that setCameraSeeAll works correctly
+
+        namedImages[name].append(rep)        
+
+mgr.setCameraSeeAll()
+mgr.controller.zoom(-100) # zoom closer to images a little, might need to adjust this for different screens
+mgr.setBackgroundColor(color(0,0,0,1.0))
+mgr.play()
 
 ################################################################################################
 ### Hide the UI
 ################################################################################################
 
-#reprs[0][0].setVisible(True) # need something visible for setCameraSeeAll() to do anything
-mgr.setCameraSeeAll()
-#mgr.controller.zoom(-200) # zoom closer to mesh a little, might need to adjust this for different screens
-#mgr.setBackgroundColor(color(0,0,0,1.0))
-mgr.play()
-
-#@mgr.callThreadSafe
+@mgr.callThreadSafe
 def _hideUI():
     mgr.win.menuBar().setVisible(False)
     mgr.win.interfaceDock.setVisible(False)
@@ -117,22 +117,21 @@ def serialReadLoop():
     '''Loops indefinitely reading the name from the serial device and setting the image visibility as appropriate.'''
     while(True): # loop forever, attempting to open the port again if it's lost at any time
         try:
-            with serial.Serial(PORT,BAUD) as ser:
+            with serial.Serial(PORT,BAUD) as ser: # establish serial connection, this should fail if device not present 
                 printFlush('Starting serial read loop')
+                
                 while(True):
-                    line=ser.readline().strip()
-        #            if line[:2]=='\x03\x02': # check the header of each line, if this isn't the check byte pair then skip
-                    if line in namedImages:
-                        name=line[2:]
-                        
+                    name=ser.readline().strip()
+                    if name in namedImages:
                         # loop through all the images and set their visible to True if the name they are under matches the received name
                         for n,imgs in namedImages.items():
                             for i in imgs:
                                 i.setVisible(n==name)
                     else:
-                        printFlush('Bad name: %r'%line)
-                        if not line:
-                            raise IOError('Connection lost')
+                        printFlush('Bad name: %r'%name)
+                        if not name:
+                            # this will force control flow to the outer loop which will attempt to establish a new connection
+                            raise IOError('Connection lost') 
         except:
             pass
                 
@@ -140,4 +139,4 @@ def serialReadLoop():
 ################################################################################################                
 ### Start the read loop, this is the core functionality of this script
 ################################################################################################
-#p=serialReadLoop()      
+p=serialReadLoop()      
