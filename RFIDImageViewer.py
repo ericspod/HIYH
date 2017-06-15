@@ -30,7 +30,6 @@ for i in range(256):
 # name of the port for the RFID reader, if this can't be found replace this with hard coded string, eg. COM3 or COM4
 PORT=last(available) 
 # PORT='COM4' # try this if the above can't be found
-assert PORT, 'Port for serial device not found! Try replacing PORT with hard-coded string.'
 
 # this setting for the serial port shouldn't need changing
 BAUD=57600
@@ -52,11 +51,24 @@ transforms={
                 transform(980.0,-8.313213,1961.7812,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
         ),
         'ATHLETE':(
-                transform(199.0,0.0,10.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
-                transform(67.0,0.0,8.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
-                transform(600.0,-34.0,123.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
-                transform(863.0,-34.0,123.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+                transform(-295.0,32.0,884.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
+                transform(-437.0,32.0,890.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
+                transform(125.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+                transform(423.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
         ),
+        'DCM':(
+                transform(-608.0,95.0,593.0,-1.0,1.0,1.0,0.0,0.0,1.570795,False),
+                transform(-764.0,96.0,574.0,-1.0,1.0,1.0,0.0,0.0,1.570795,False),
+                transform(395.0,75.800167,1038.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+                transform(113.809857,75.748728,1037.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+        ),
+        'FONTAN':(
+            transform(-538.0,44.0,537.0,1.0,1.0,1.0,0.0,0.0,0.0,False),
+            transform(-685.0,44.0,554.0,1.0,1.0,1.0,0.0,0.0,0.0,False)
+        ),
+        'HCM':(
+            transform(-524.0,99.0,601.0,-1.0,1.0,1.0,0.0,0.0,1.57079,False),
+        )
 }
 
 # maps image names to tuples of image representation objects, keys must match the names emitted by the RFID reader
@@ -92,7 +104,7 @@ for name,filenames in namedFilenames.items():
         namedImages[name].append(rep)        
 
 mgr.setCameraSeeAll()
-mgr.controller.zoom(-100) # zoom closer to images a little, might need to adjust this for different screens
+mgr.controller.zoom(-250) # zoom closer to images a little, might need to adjust this for different screens
 mgr.setBackgroundColor(color(0,0,0,1.0))
 mgr.play()
 
@@ -105,8 +117,8 @@ def _hideUI():
     mgr.win.menuBar().setVisible(False)
     mgr.win.interfaceDock.setVisible(False)
     mgr.win.statusBar.setVisible(False)
-    mgr.win.setWindowState(Qt.WindowFullScreen)
     mgr.win.timeWidget.setVisible(False)
+    #mgr.win.setWindowState(Qt.WindowFullScreen)
 
 ################################################################################################
 ### Main event loop
@@ -115,6 +127,8 @@ def _hideUI():
 @asyncfunc
 def serialReadLoop():
     '''Loops indefinitely reading the name from the serial device and setting the image visibility as appropriate.'''
+    assert PORT, 'Port for serial device not found! Try replacing PORT with hard-coded string.'
+    
     while(True): # loop forever, attempting to open the port again if it's lost at any time
         try:
             with serial.Serial(PORT,BAUD) as ser: # establish serial connection, this should fail if device not present 
@@ -127,6 +141,10 @@ def serialReadLoop():
                         for n,imgs in namedImages.items():
                             for i in imgs:
                                 i.setVisible(n==name)
+                    
+                            # set the min and max timesteps to match the visible images so that they loop smoothly
+                            if n==name:
+                                mgr.timestepMin,mgr.timestepMax=minmax((i.getTimestepRange() for i in imgs),ranges=True)
                     else:
                         printFlush('Bad name: %r'%name)
                         if not name:
@@ -139,4 +157,23 @@ def serialReadLoop():
 ################################################################################################                
 ### Start the read loop, this is the core functionality of this script
 ################################################################################################
-p=serialReadLoop()      
+#p=serialReadLoop()      
+
+@asyncfunc
+def looptest():
+    import time
+    names=['NORMAL', 'ATHLETE', 'HCM', 'DCM', 'FONTAN']
+    while(True):
+        for name in names:
+            time.sleep(5)
+            printFlush(name)
+            for n,imgs in namedImages.items():
+                for i in imgs:
+                    i.setVisible(n==name)
+                    
+                if n==name:
+                    mgr.timestepMin,mgr.timestepMax=minmax((i.getTimestepRange() for i in imgs),ranges=True)
+    
+p=looptest()
+    
+        
