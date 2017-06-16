@@ -10,6 +10,8 @@ are checked out from Github using the Github Desktop client, but Anaconda and th
 Setup procedure (should already be done on the display machines)
 ================================================================
 
+Login username/password for both machines in admin/admin1234.
+
  1. Install Anaconda2 4.1.1 from https://repo.continuum.io/archive/Anaconda2-4.1.1-Windows-x86_64.exe
  2. Install Github Desktop from https://desktop.github.com/
  3. Checkout https://github.com/ericspod/HIYH and https://github.com/ericspod/Eidolon to the desktop

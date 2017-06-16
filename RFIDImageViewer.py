@@ -161,6 +161,7 @@ def serialReadLoop():
 
 @asyncfunc
 def looptest():
+	'''Test the viewer by cycling between the 5 images every 5 seconds/'''
     import time
     names=['NORMAL', 'ATHLETE', 'HCM', 'DCM', 'FONTAN']
     while(True):

@@ -53,7 +53,7 @@ initialrotation=rotator(-0.187471734862557,0.384590468636151,0.768019390580495,0
 # multiply the rotator by the model yaw rotator to fix yaw if necessary
 initialrotation=rotator(vec3.Z(),modelYaw)*initialrotation 
 
-# names of the 4 meshes to load
+# names of the 4 meshes to load, everything should be in this order
 names=('unpaced', 'anterior','lateral','posterolateral')
 
 #list of loaded representations
@@ -61,11 +61,11 @@ reprs=[]
 
 # materials for meshes
 mats=[mgr.createMaterial(n) for n in names]
-mats[0].setDiffuse(color(1,0,0))
-mats[1].setDiffuse(color(1,1,0))
-mats[2].setDiffuse(color(0,1,1))
-mats[3].setDiffuse(color(0,0,1))
-mats[0].setAlpha(0.5)
+mats[0].setDiffuse(color(1,0,0)) # unpaced color
+mats[1].setDiffuse(color(1,1,0)) # anterior paced color
+mats[2].setDiffuse(color(0,1,1)) # lateral paced color
+mats[3].setDiffuse(color(0,0,1)) # posterolateral paced color
+mats[0].setAlpha(0.5) # leave these alone
 mats[1].setAlpha(0.5)
 mats[2].setAlpha(0.5)
 mats[3].setAlpha(0.5)
@@ -167,6 +167,7 @@ def serialReadLoop():
                         #printFlush(x,y,z,w,r)
                         
                         # choose which representation is to be visible based on button presses
+                        # 0=unpaced, 1=anterior, 2=lateral, 3=posterolateral 
                         if a and b and c:
                             index=0
                         elif not a:
