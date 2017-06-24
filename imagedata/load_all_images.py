@@ -74,6 +74,54 @@ mat02.setGPUProgram('BaseImage',PT_FRAGMENT)
 mat02.addSpectrumValue(0.0,color(0.0,0.0,0.0,1.0))
 mat02.addSpectrumValue(1.0,color(1.0,1.0,1.0,1.0))
 
+mat03=mgr.createMaterial("mat03")
+mat03.setAmbient(color(1.0,1.0,1.0,1.0))
+mat03.setDiffuse(color(1.0,1.0,1.0,1.0))
+mat03.setSpecular(color(0.0,0.0,0.0,1.0))
+mat03.setEmissive(color(0.0,0.0,0.0,1.0))
+mat03.setShininess(0.0)
+mat03.setPointSize(0.0,0.0)
+mat03.setPointSizeAbs(2.0)
+mat03.setPointAttenuation(False)
+mat03.useVertexColor(False)
+mat03.useDepthCheck(True)
+mat03.useDepthWrite(True)
+mat03.useTexFiltering(True)
+mat03.clampTexAddress(False)
+mat03.useFlatShading(False)
+mat03.useLighting(True)
+mat03.cullBackfaces(True)
+mat03.usePointSprites(False)
+mat03.setAlpha(1.0)
+mat03.useInternalAlpha(True)
+mat03.setGPUProgram('BaseImage',PT_FRAGMENT)
+mat03.addSpectrumValue(0.0,color(0.0,0.0,0.0,1.0))
+mat03.addSpectrumValue(1.0,color(1.0,1.0,1.0,1.0))
+
+mat04=mgr.createMaterial("mat04")
+mat04.setAmbient(color(1.0,1.0,1.0,1.0))
+mat04.setDiffuse(color(1.0,1.0,1.0,1.0))
+mat04.setSpecular(color(0.0,0.0,0.0,1.0))
+mat04.setEmissive(color(0.0,0.0,0.0,1.0))
+mat04.setShininess(0.0)
+mat04.setPointSize(0.0,0.0)
+mat04.setPointSizeAbs(2.0)
+mat04.setPointAttenuation(False)
+mat04.useVertexColor(False)
+mat04.useDepthCheck(True)
+mat04.useDepthWrite(True)
+mat04.useTexFiltering(True)
+mat04.clampTexAddress(False)
+mat04.useFlatShading(False)
+mat04.useLighting(True)
+mat04.cullBackfaces(True)
+mat04.usePointSprites(False)
+mat04.setAlpha(1.0)
+mat04.useInternalAlpha(True)
+mat04.setGPUProgram('BaseImage',PT_FRAGMENT)
+mat04.addSpectrumValue(0.0,color(0.0,0.0,0.0,1.0))
+mat04.addSpectrumValue(1.0,color(1.0,1.0,1.0,1.0))
+
 ##CO obj sax_slice <class 'eidolon.ImageObject.ImageSceneObject'>
 obj = MetaImg.loadObject(scriptdir+'HEALTHY/sax_slice.mhd','sax_slice')
 mgr.addSceneObject(obj)
@@ -130,9 +178,29 @@ mgr.addSceneObject(obj12)
 obj13 = MetaImg.loadObject(scriptdir+'FONTAN/tags_slice1.mhd','tags_slice1_02')
 mgr.addSceneObject(obj13)
 
-##CO obj14 sax_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
-obj14 = MetaImg.loadObject(scriptdir+'HCM/sax_slice.mhd','sax_slice_04')
+##CO obj14 4dflow_mag_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+obj14 = MetaImg.loadObject(scriptdir+'FONTAN/4dflow_mag_slice.mhd','4dflow_mag_slice_04')
 mgr.addSceneObject(obj14)
+
+##CO obj15 4dflow_phase_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+obj15 = MetaImg.loadObject(scriptdir+'FONTAN/4dflow_phase_slice.mhd','4dflow_phase_slice_04')
+mgr.addSceneObject(obj15)
+
+##CO obj16 sax_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+obj16 = MetaImg.loadObject(scriptdir+'HCM/sax_slice.mhd','sax_slice_04')
+mgr.addSceneObject(obj16)
+
+##CO obj17 tags_slice1_03 <class 'eidolon.ImageObject.ImageSceneObject'>
+obj17 = MetaImg.loadObject(scriptdir+'HCM/tags_slice1.mhd','tags_slice1_03')
+mgr.addSceneObject(obj17)
+
+##CO obj18 4dflow_mag_slice_03 <class 'eidolon.ImageObject.ImageSceneObject'>
+obj18 = MetaImg.loadObject(scriptdir+'HCM/4dflow_mag_slice.mhd','4dflow_mag_slice_03')
+mgr.addSceneObject(obj18)
+
+##CO obj19 4dflow_phase_slice_03 <class 'eidolon.ImageObject.ImageSceneObject'>
+obj19 = MetaImg.loadObject(scriptdir+'HCM/4dflow_phase_slice.mhd','4dflow_phase_slice_03')
+mgr.addSceneObject(obj19)
 
 ##SO obj sax_slice <class 'eidolon.ImageObject.ImageSceneObject'>
 
@@ -176,7 +244,22 @@ mgr.addSceneObject(obj14)
 ##SO obj13 tags_slice1_02 <class 'eidolon.ImageObject.ImageSceneObject'>
 
 
-##SO obj14 sax_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+##SO obj14 4dflow_mag_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+
+
+##SO obj15 4dflow_phase_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+
+
+##SO obj16 sax_slice_04 <class 'eidolon.ImageObject.ImageSceneObject'>
+
+
+##SO obj17 tags_slice1_03 <class 'eidolon.ImageObject.ImageSceneObject'>
+
+
+##SO obj18 4dflow_mag_slice_03 <class 'eidolon.ImageObject.ImageSceneObject'>
+
+
+##SO obj19 4dflow_phase_slice_03 <class 'eidolon.ImageObject.ImageSceneObject'>
 
 
 ##CR rep Timed Image Stack <sax_slice> <class 'eidolon.ImageObject.ImageSeriesRepr'>
@@ -235,9 +318,29 @@ mgr.addSceneObjectRepr(rep12)
 rep13=obj13.createRepr(ReprType._imgtimestack,imgmat=mat)
 mgr.addSceneObjectRepr(rep13)
 
-##CR rep14 Timed Image Stack 14 <sax_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
-rep14=obj14.createRepr(ReprType._imgtimestack,imgmat=mat)
+##CR rep14 Timed Image Stack 14 <4dflow_mag_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+rep14=obj14.createRepr(ReprType._imgtimestack,imgmat=mat03)
 mgr.addSceneObjectRepr(rep14)
+
+##CR rep15 Timed Image Stack 15 <4dflow_phase_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+rep15=obj15.createRepr(ReprType._imgtimestack,imgmat=mat03)
+mgr.addSceneObjectRepr(rep15)
+
+##CR rep16 Timed Image Stack 16 <sax_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+rep16=obj16.createRepr(ReprType._imgtimestack,imgmat=mat03)
+mgr.addSceneObjectRepr(rep16)
+
+##CR rep17 Timed Image Stack 17 <tags_slice1_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+rep17=obj17.createRepr(ReprType._imgtimestack,imgmat=mat03)
+mgr.addSceneObjectRepr(rep17)
+
+##CR rep18 Timed Image Stack 18 <4dflow_mag_slice_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+rep18=obj18.createRepr(ReprType._imgtimestack,imgmat=mat04)
+mgr.addSceneObjectRepr(rep18)
+
+##CR rep19 Timed Image Stack 19 <4dflow_phase_slice_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+rep19=obj19.createRepr(ReprType._imgtimestack,imgmat=mat04)
+mgr.addSceneObjectRepr(rep19)
 
 ##SR rep Timed Image Stack <sax_slice> <class 'eidolon.ImageObject.ImageSeriesRepr'>
 mgr.showBoundBox(rep,False)
@@ -302,17 +405,42 @@ mgr.setReprProps(rep11,trans=transform(423.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.
 ##SR rep12 Timed Image Stack 12 <sax_slice_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
 mgr.showBoundBox(rep12,False)
 mgr.showHandle(rep12,False)
-mgr.setReprProps(rep12,trans=transform(-538.0,44.0,537.0,1.0,1.0,1.0,0.0,0.0,0.0,False),parent=None)
+mgr.setReprProps(rep12,trans=transform(-516.0,-7.0,837.0,1.0,1.0,1.0,-2.65358979335584e-06,1.57079765358979,2.65358979335584e-06,False),parent=None)
 
 ##SR rep13 Timed Image Stack 13 <tags_slice1_02> <class 'eidolon.ImageObject.ImageSeriesRepr'>
 mgr.showBoundBox(rep13,False)
 mgr.showHandle(rep13,False)
-mgr.setReprProps(rep13,trans=transform(-685.0,44.0,554.0,1.0,1.0,1.0,0.0,0.0,0.0,False),parent=None)
+mgr.setReprProps(rep13,trans=transform(-685.0,-262.0,605.0,1.0,1.0,1.0,0.0,-1.570795,0.0,False),parent=None)
 
-##SR rep14 Timed Image Stack 14 <sax_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+##SR rep14 Timed Image Stack 14 <4dflow_mag_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
 mgr.showBoundBox(rep14,False)
 mgr.showHandle(rep14,False)
-mgr.setReprProps(rep14,trans=transform(-524.0,99.0,601.0,-1.0,1.0,1.0,0.0,0.0,1.57079,False),parent=None)
+mgr.setReprProps(rep14,trans=transform(36.0,-42.0,702.0,1.0,1.0,1.0,0.0,1.570795,-3.141585,False),parent=None)
+
+##SR rep15 Timed Image Stack 15 <4dflow_phase_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+mgr.showBoundBox(rep15,False)
+mgr.showHandle(rep15,False)
+mgr.setReprProps(rep15,trans=transform(272.0,-42.0,702.0,1.0,1.0,1.0,0.0,1.570795,-3.14159,False),parent=None)
+
+##SR rep16 Timed Image Stack 16 <sax_slice_04> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+mgr.showBoundBox(rep16,False)
+mgr.showHandle(rep16,False)
+mgr.setReprProps(rep16,trans=transform(-379.0,-352.0,789.0,-1.0,1.0,1.0,-3e-06,-1.570792,-3.141592,False),parent=None)
+
+##SR rep17 Timed Image Stack 17 <tags_slice1_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+mgr.showBoundBox(rep17,False)
+mgr.showHandle(rep17,False)
+mgr.setReprProps(rep17,trans=transform(-520.0,78.0,821.0,1.0,1.0,1.0,-3e-06,1.570803,-2e-06,False),parent=None)
+
+##SR rep18 Timed Image Stack 18 <4dflow_mag_slice_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+mgr.showBoundBox(rep18,False)
+mgr.showHandle(rep18,False)
+mgr.setReprProps(rep18,trans=transform(-132.0,20.0,808.0,1.0,-1.0,1.0,5.55111512312578e-17,1.5708,1.570795,False),parent=None)
+
+##SR rep19 Timed Image Stack 19 <4dflow_phase_slice_03> <class 'eidolon.ImageObject.ImageSeriesRepr'>
+mgr.showBoundBox(rep19,False)
+mgr.showHandle(rep19,False)
+mgr.setReprProps(rep19,trans=transform(169.0,20.0,808.0,1.0,-1.0,1.0,0.0,1.5708,1.5708,False),parent=None)
 
 ## Scene Setup
 mgr.setSingleFreeCamera()

@@ -1,0 +1,8 @@
+NDims = 4
+DimSize = 81 81 1 24
+ElementType = MET_USHORT
+TransformMatrix = 1 0 0 0        0 1 0 0    0 0 1 0    0 0 0 1
+Offset = 62.064301 -106.355803 96.199172
+ElementSpacing = 1.952999949460 1.952999949460 1.950000047680 0.032000000000
+ElementByteOrderMSB = False
+ElementDataFile = 4dflow_mag_slice.raw

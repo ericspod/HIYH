@@ -36,38 +36,43 @@ BAUD=57600
 
 # maps names to the filenames of images to load, expect names to be NORMAL, ATHLETE, HCM, DCM, FONTAN
 namedFilenames={
-        'NORMAL':('HEALTHY/sax_slice.mhd','HEALTHY/tags_slice1.mhd','HEALTHY/4dflow_mag_slice.mhd','HEALTHY/4dflow_phase_slice.mhd'),
+        'NORMAL': ('HEALTHY/sax_slice.mhd','HEALTHY/tags_slice1.mhd','HEALTHY/4dflow_mag_slice.mhd','HEALTHY/4dflow_phase_slice.mhd'),
         'ATHLETE':('ATHLETE/sax_slice.mhd','ATHLETE/tags_slice1.mhd','ATHLETE/4dflow_mag_slice.mhd','ATHLETE/4dflow_phase_slice.mhd'),
-        'DCM':('DCM/sax_slice.mhd','DCM/tags_slice1.mhd','DCM/4dflow_mag_slice.mhd','DCM/4dflow_phase_slice.mhd'),
-        'FONTAN':('FONTAN/sax_slice.mhd','FONTAN/tags_slice1.mhd'),
-        'HCM':('HCM/sax_slice.mhd',)
+        'DCM':    ('DCM/sax_slice.mhd',    'DCM/tags_slice1.mhd',    'DCM/4dflow_mag_slice.mhd',    'DCM/4dflow_phase_slice.mhd'),
+        'FONTAN': ('FONTAN/sax_slice.mhd', 'FONTAN/tags_slice1.mhd', 'FONTAN/4dflow_mag_slice.mhd', 'FONTAN/4dflow_phase_slice.mhd'),
+        'HCM':    ('HCM/sax_slice.mhd',    'HCM/tags_slice1.mhd',    'HCM/4dflow_mag_slice.mhd',    'HCM/4dflow_phase_slice.mhd')
 }
 
 transforms={
         'NORMAL':(
-                transform(-217.555986,0.0,200.16079,1.0,1.0,1.0,0.0,0.0,0.0,False),
-                transform(-232.481062,0.0,200.166145,1.0,1.0,1.0,0.0,0.0,0.0,False),
-                transform(1020.764664,-0.183632,3730.137349,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
-                transform(980.0,-8.313213,1961.7812,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+            transform(-217.555986,0.0,200.16079,1.0,1.0,1.0,0.0,0.0,0.0,False),
+            transform(-232.481062,0.0,200.166145,1.0,1.0,1.0,0.0,0.0,0.0,False),
+            transform(1020.764664,-0.183632,3730.137349,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+            transform(980.0,-8.313213,1961.7812,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
         ),
         'ATHLETE':(
-                transform(-295.0,32.0,884.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
-                transform(-437.0,32.0,890.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
-                transform(125.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
-                transform(423.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+            transform(-295.0,32.0,884.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
+            transform(-437.0,32.0,890.0,-1.0,1.0,1.0,0.0,0.0,0.0,False),
+            transform(125.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+            transform(423.0,-7.0,985.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
         ),
         'DCM':(
-                transform(-608.0,95.0,593.0,-1.0,1.0,1.0,0.0,0.0,1.570795,False),
-                transform(-764.0,96.0,574.0,-1.0,1.0,1.0,0.0,0.0,1.570795,False),
-                transform(113.809857,75.748728,1037.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
-                transform(395.0,75.800167,1038.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
+            transform(-608.0,95.0,593.0,-1.0,1.0,1.0,0.0,0.0,1.570795,False),
+            transform(-764.0,96.0,574.0,-1.0,1.0,1.0,0.0,0.0,1.570795,False),
+            transform(113.809857,75.748728,1037.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False),
+            transform(395.0,75.800167,1038.0,-1.0,1.0,-1.0,0.0,0.0,0.0,False)
         ),
         'FONTAN':(
-            transform(-538.0,44.0,537.0,1.0,1.0,1.0,0.0,0.0,0.0,False),
-            transform(-685.0,44.0,554.0,1.0,1.0,1.0,0.0,0.0,0.0,False)
+            transform(-516.0,-7.0,837.0,1.0,1.0,1.0,-2.65358979335584e-06,1.57079765358979,2.65358979335584e-06,False),
+            transform(-685.0,-262.0,605.0,1.0,1.0,1.0,0.0,-1.570795,0.0,False),
+            transform(36.0,-42.0,702.0,1.0,1.0,1.0,0.0,1.570795,-3.141585,False),
+            transform(272.0,-42.0,702.0,1.0,1.0,1.0,0.0,1.570795,-3.14159,False)
         ),
         'HCM':(
-            transform(-524.0,99.0,601.0,-1.0,1.0,1.0,0.0,0.0,1.57079,False),
+            transform(-379.0,-352.0,789.0,-1.0,1.0,1.0,-3e-06,-1.570792,-3.141592,False),
+            transform(-520.0,78.0,821.0,1.0,1.0,1.0,-3e-06,1.570803,-2e-06,False),
+            transform(-132.0,20.0,808.0,1.0,-1.0,1.0,5.55111512312578e-17,1.5708,1.570795,False),
+            transform(169.0,20.0,808.0,1.0,-1.0,1.0,0.0,1.5708,1.5708,False)
         )
 }
 
@@ -161,7 +166,7 @@ def serialReadLoop():
 
 @asyncfunc
 def looptest():
-	'''Test the viewer by cycling between the 5 images every 5 seconds/'''
+    '''Test the viewer by cycling between the 5 images every 5 seconds/'''
     import time
     names=['NORMAL', 'ATHLETE', 'HCM', 'DCM', 'FONTAN']
     while(True):
