@@ -1,8 +1,8 @@
 NDims = 4
-DimSize = 101 111 1 40
+DimSize = 111 121 1 40
 ElementType = MET_USHORT
-Offset = 76.950000 -230.928000 182.215000
-TransformMatrix = 1 0 0  0 0 0 1 0 0 1 0 0 0 0 0 1
-ElementSpacing = 1.445310000000 1.445310000000 7.999990000000 0.023809500000
+TransformMatrix = 1 0 0 0   0 1 0 0   0 0 1 0   0 0 0 1
+Offset = 145.539000 -147.438000 119.888000
+ElementSpacing = 1.383930000000 1.383930000000 8.000000000000 0.025000000000
 ElementByteOrderMSB = False
 ElementDataFile = sax_slice.raw
