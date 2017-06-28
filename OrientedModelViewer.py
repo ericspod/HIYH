@@ -126,6 +126,7 @@ for n,files,amap,mat in zip(names,displaceFilenames,activationMaps,mats):
     reprs.append((rep,rep1)) # add the reprs to the list
 
 reprs[0][0].setVisible(True) # need something visible for setCameraSeeAll() to do anything
+reprs[0][1].setVisible(True) # need something visible for setCameraSeeAll() to do anything
 mgr.setCameraSeeAll()
 mgr.controller.zoom(-200) # zoom closer to mesh a little, might need to adjust this for different screens
 mgr.setBackgroundColor(color(0,0,0,1.0))
