@@ -123,7 +123,7 @@ def _hideUI():
     mgr.win.interfaceDock.setVisible(False)
     mgr.win.statusBar.setVisible(False)
     mgr.win.timeWidget.setVisible(False)
-    #mgr.win.setWindowState(Qt.WindowFullScreen)
+    mgr.win.setWindowState(Qt.WindowFullScreen)
 
 ################################################################################################
 ### Main event loop
@@ -162,24 +162,24 @@ def serialReadLoop():
 ################################################################################################                
 ### Start the read loop, this is the core functionality of this script
 ################################################################################################
-#p=serialReadLoop()      
+p=serialReadLoop()      
 
-@asyncfunc
-def looptest():
-    '''Test the viewer by cycling between the 5 images every 5 seconds/'''
-    import time
-    names=['NORMAL', 'ATHLETE', 'HCM', 'DCM', 'FONTAN']
-    while(True):
-        for name in names:
-            time.sleep(5)
-            printFlush(name)
-            for n,imgs in namedImages.items():
-                for i in imgs:
-                    i.setVisible(n==name)
-                    
-                if n==name:
-                    mgr.timestepMin,mgr.timestepMax=minmax((i.getTimestepRange() for i in imgs),ranges=True)
-    
-p=looptest()
+#@asyncfunc
+#def looptest():
+#    '''Test the viewer by cycling between the 5 images every 5 seconds/'''
+#    import time
+#    names=['NORMAL', 'ATHLETE', 'HCM', 'DCM', 'FONTAN']
+#    while(True):
+#        for name in names:
+#            time.sleep(5)
+#            printFlush(name)
+#            for n,imgs in namedImages.items():
+#                for i in imgs:
+#                    i.setVisible(n==name)
+#                    
+#                if n==name:
+#                    mgr.timestepMin,mgr.timestepMax=minmax((i.getTimestepRange() for i in imgs),ranges=True)
+#    
+#p=looptest()
     
         
