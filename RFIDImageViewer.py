@@ -88,6 +88,11 @@ matphase=mgr.createMaterial('PhaseMat')
 matphase.setGPUProgram('BaseImage',PT_FRAGMENT)
 matphase.setSpectrumData([color(0,0,0),color()],[0.2,0.8]) # enhance the contrast by moving the black and white points inwards
 
+textfig=mgr.callThreadSafe(mgr.scene.createFigure,'testfig','',FT_TEXT)
+textfig.setText('TEST')
+textfig.setTextHeight(100)
+textfig.setVisible(True)
+
 ################################################################################################
 ### Load image objects
 ################################################################################################
@@ -150,6 +155,10 @@ def serialReadLoop():
                             # set the min and max timesteps to match the visible images so that they loop smoothly
                             if n==name:
                                 mgr.timestepMin,mgr.timestepMax=minmax((i.getTimestepRange() for i in imgs),ranges=True)
+                                
+                        textfig.setText(name)
+                        textfig.setPosition(mgr.cameras[0].getProjectedRay(0,0).getPosition(1000))
+                        
                     else:
                         printFlush('Bad name: %r'%name)
                         if not name:
@@ -179,7 +188,11 @@ p=serialReadLoop()
 #                    
 #                if n==name:
 #                    mgr.timestepMin,mgr.timestepMax=minmax((i.getTimestepRange() for i in imgs),ranges=True)
+#                    
+#            textfig.setText(name)
+#            textfig.setPosition(mgr.cameras[0].getProjectedRay(0,0).getPosition(1000))
 #    
+#            
 #p=looptest()
     
         
